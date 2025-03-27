@@ -10,8 +10,16 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.io.IOException
 
+sealed interface ApiUiState{
+
+    data class Success(val photos:String) : ApiUiState
+
+    object Error: ApiUiState
+
+    object Loading: ApiUiState
+}
 class ApiViewModel:ViewModel(){
-    var apiUiState by mutableStateOf("")
+    var apiUiState:ApiUiState by mutableStateOf(ApiUiState.Loading)
         private set
 
     init {
@@ -22,9 +30,9 @@ class ApiViewModel:ViewModel(){
         viewModelScope.launch {
             try{
                 val listResult = Api.retrofitService.getPhotos()
-                apiUiState = listResult
+                apiUiState = ApiUiState.Success("Numero de fotos ${listResult.size}")
             }catch (e: IOException){
-
+                apiUiState = ApiUiState.Error
             }
         }
     }
