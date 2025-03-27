@@ -28,11 +28,11 @@ class ApiViewModel:ViewModel(){
 
     fun getApiPhotos(){
         viewModelScope.launch {
-            apiUiState = try {
+            try{
                 val listResult = Api.retrofitService.getPhotos()
-                ApiUiState.Success(listResult)
+                apiUiState = ApiUiState.Success("${listResult}")
             }catch (e: IOException){
-                ApiUiState.Error
+                apiUiState = ApiUiState.Error
             }
         }
     }
