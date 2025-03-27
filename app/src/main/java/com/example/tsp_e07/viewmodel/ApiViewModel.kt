@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tsp_e07.model.ApiPhoto
 import com.example.tsp_e07.network.Api
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import java.io.IOException
 
 sealed interface ApiUiState{
 
-    data class Success(val photos:String) : ApiUiState
+    data class Success(val photo:ApiPhoto) : ApiUiState
 
     object Error: ApiUiState
 
@@ -28,11 +29,11 @@ class ApiViewModel:ViewModel(){
 
     fun getApiPhotos(){
         viewModelScope.launch {
-            try{
+            apiUiState = try {
                 val listResult = Api.retrofitService.getPhotos()
-                apiUiState = ApiUiState.Success("Numero de fotos ${listResult.size}")
+                ApiUiState.Success(listResult[0])
             }catch (e: IOException){
-                apiUiState = ApiUiState.Error
+                ApiUiState.Error
             }
         }
     }

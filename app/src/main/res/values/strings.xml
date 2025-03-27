@@ -3,4 +3,5 @@
     <string name="result_of_get_photos_from_web">result_of_get_photos_from_web</string>
     <string name="placeholder_result">placeholder_result</string>
     <string name="api_app">Api App</string>
+    <string name="api_image">Api Image</string>
 </resources>
