@@ -30,7 +30,7 @@ class ApiViewModel:ViewModel(){
         viewModelScope.launch {
             try{
                 val listResult = Api.retrofitService.getPhotos()
-                apiUiState = ApiUiState.Success("Numero de fotos ${listResult.size}")
+                apiUiState = ApiUiState.Success("${listResult}")
             }catch (e: IOException){
                 apiUiState = ApiUiState.Error
             }
