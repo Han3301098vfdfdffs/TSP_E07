@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tsp_e07.model.ApiPhoto
 import com.example.tsp_e07.network.Api
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 sealed interface ApiUiState{
 
-    data class Success(val photo:ApiPhoto) : ApiUiState
+    data class Success(val photos:List<ApiPhoto>) : ApiUiState
 
     object Error: ApiUiState
 
@@ -31,7 +30,7 @@ class ApiViewModel:ViewModel(){
         viewModelScope.launch {
             apiUiState = try {
                 val listResult = Api.retrofitService.getPhotos()
-                ApiUiState.Success(listResult[0])
+                ApiUiState.Success(listResult)
             }catch (e: IOException){
                 ApiUiState.Error
             }
