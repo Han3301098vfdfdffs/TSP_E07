@@ -58,6 +58,7 @@ dependencies {
 
     //Show images
     implementation("io.coil-kt:coil-compose:2.4.0")
+
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
 
