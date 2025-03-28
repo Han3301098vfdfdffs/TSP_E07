@@ -5,14 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tsp_e07.model.ApiPhoto
 import com.example.tsp_e07.network.Api
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 sealed interface ApiUiState{
 
-    data class Success(val photos:List<ApiPhoto>) : ApiUiState
+    data class Success(val photos:String) : ApiUiState
 
     object Error: ApiUiState
 
